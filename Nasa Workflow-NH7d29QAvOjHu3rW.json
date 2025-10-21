@@ -1,0 +1,205 @@
+[
+  {
+    "createdAt": "2025-10-08T11:45:53.269Z",
+    "updatedAt": "2025-10-21T11:23:04.000Z",
+    "id": "NH7d29QAvOjHu3rW",
+    "name": "Nasa Workflow",
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          0,
+          0
+        ],
+        "id": "cc9602b2-890a-4f52-a1e4-667d64c44e55",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {
+          "resource": "donkiSolarFlare",
+          "additionalFields": {
+            "startDate": "={{ $today.minus(7, 'days') }}"
+          }
+        },
+        "type": "n8n-nodes-base.nasa",
+        "typeVersion": 1,
+        "position": [
+          208,
+          0
+        ],
+        "id": "8d9cbae5-1c92-4603-aa7e-b78ba8f6bafc",
+        "name": "Get a DONKI solar flare",
+        "credentials": {
+          "nasaApi": {
+            "id": "8ejs3WD44aKiCB1w",
+            "name": "NASA account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "0f51c3c5-1144-4b66-a61e-76f7560b489d",
+                "leftValue": "={{ $json.classType }}",
+                "rightValue": "M",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          416,
+          0
+        ],
+        "id": "c7edcb64-9821-426e-9c96-9d72eadc2be2",
+        "name": "If"
+      },
+      {
+        "parameters": {
+          "content": "## Click [here](http://localhost:5678/form/commit?id=NH7d29QAvOjHu3rW) to commit change ",
+          "height": 140,
+          "width": 440,
+          "color": 5
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -96,
+          -176
+        ],
+        "typeVersion": 1,
+        "id": "cdbe5934-d256-4960-b8d2-5844125b506e",
+        "name": "Sticky Note"
+      }
+    ],
+    "connections": {
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "Get a DONKI solar flare",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get a DONKI solar flare": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [],
+          []
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "staticData": {
+      "node:Schedule Trigger": {
+        "recurrenceRules": []
+      }
+    },
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "pinData": {},
+    "versionId": "caa66260-f8ca-47f7-a3f1-499bcd1a6de4",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-10-08T11:45:53.273Z",
+        "updatedAt": "2025-10-08T11:45:53.273Z",
+        "role": "workflow:owner",
+        "workflowId": "NH7d29QAvOjHu3rW",
+        "projectId": "smqD3en6ntzThqUk",
+        "project": {
+          "createdAt": "2025-10-06T21:57:47.383Z",
+          "updatedAt": "2025-10-06T21:59:19.475Z",
+          "id": "smqD3en6ntzThqUk",
+          "name": "Benedikt Hülshorst <benedikt.huelshorst@alumni.fh-aachen.de>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "projectRelations": [
+            {
+              "createdAt": "2025-10-06T21:57:47.383Z",
+              "updatedAt": "2025-10-06T21:57:47.383Z",
+              "userId": "07d13922-f245-4e51-98d2-acbaa5a0715a",
+              "projectId": "smqD3en6ntzThqUk",
+              "user": {
+                "createdAt": "2025-10-06T21:57:46.742Z",
+                "updatedAt": "2025-10-21T10:04:54.000Z",
+                "id": "07d13922-f245-4e51-98d2-acbaa5a0715a",
+                "email": "benedikt.huelshorst@alumni.fh-aachen.de",
+                "firstName": "Benedikt",
+                "lastName": "Hülshorst",
+                "personalizationAnswers": {
+                  "version": "v4",
+                  "personalization_survey_submitted_at": "2025-10-06T22:00:12.862Z",
+                  "personalization_survey_n8n_version": "1.114.3",
+                  "companySize": "personalUser",
+                  "companyType": "education",
+                  "role": "other",
+                  "roleOther": "Student",
+                  "reportedSource": "other",
+                  "reportedSourceOther": "Teacher"
+                },
+                "settings": {
+                  "userActivated": true,
+                  "firstSuccessfulWorkflowId": "Bll1QuEaQCAUrgmH",
+                  "userActivatedAt": 1760877362237
+                },
+                "disabled": false,
+                "mfaEnabled": false,
+                "lastActiveAt": "2025-10-21",
+                "isPending": false
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "tags": []
+  }
+]
